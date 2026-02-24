@@ -430,7 +430,7 @@
     </div>
   </div>
 
-<template id="appjs">
+<script>
 (function(){
   "use strict";
 
@@ -1320,32 +1320,11 @@
     showScreen("screenStart");
   }
 
-  init();
-})();
-</template>
-
-<script>
-// Bootloader: kör app-koden även i miljöer där onload-attribut rensas.
-(function(){
-  function boot(){
-    try{
-      var t = document.getElementById('appjs');
-      if(!t){ throw new Error('Hittar inte appjs-blocket (id="appjs").'); }
-      // Kör den inbäddade IIFE-koden
-      (new Function(t.textContent))();
-      // Enkel sanity-check
-      if(!document.getElementById('btnStart')){
-        throw new Error('Appen startade inte korrekt (btnStart saknas).');
-      }
-    }catch(e){
-      console.error(e);
-      alert('Tekniskt fel: ' + (e && e.message ? e.message : e));
-    }
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', boot);
+  // Starta när DOM är redo (vissa inbäddningar kan flytta scriptet)
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
   }else{
-    boot();
+    init();
   }
 })();
 </script>
