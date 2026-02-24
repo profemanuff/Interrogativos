@@ -1,0 +1,1332 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Läxförhör – Los interrogativos</title>
+  <style>
+  :root{
+    --bg:#0b1220;
+    --panel:#0f1a2e;
+    --panel2:#0c1628;
+    --card:#0f1d36;
+    --muted:#9fb3d1;
+    --text:#eaf2ff;
+    --accent:#6ee7ff;
+    --accent2:#a78bfa;
+    --good:#22c55e;
+    --bad:#ef4444;
+    --warn:#f59e0b;
+    --border:rgba(255,255,255,.12);
+    --shadow: 0 18px 60px rgba(0,0,0,.35);
+    --radius:16px;
+    --radius2:22px;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    background: var(--bg);
+    color:var(--text);
+  }
+  a{color:inherit}
+  .app{max-width:1100px;margin:0 auto;padding:18px 14px 48px;}
+  header{
+    display:flex;gap:12px;align-items:center;justify-content:space-between;
+    padding:12px 14px;border:1px solid var(--border);
+    background: var(--panel);
+    border-radius:var(--radius2);box-shadow:var(--shadow);
+    position:sticky;top:10px;z-index:10;
+  }
+  .brand{display:flex;align-items:center;gap:10px;min-width:260px;}
+  .logo{
+    width:40px;height:40px;border-radius:14px;
+    background: linear-gradient(180deg, rgba(110,231,255,.35), rgba(110,231,255,.12));
+    border:1px solid var(--border);
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+  }
+  .brand h1{font-size:15px;margin:0;line-height:1.2;letter-spacing:.2px;}
+  .brand .sub{display:block;margin-top:2px;font-size:12px;color:var(--muted);}
+  .hdrRight{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;
+    border:1px solid var(--border);background:rgba(255,255,255,.04);
+    color:var(--muted);font-size:12px;white-space:nowrap;
+  }
+  .pill strong{color:var(--text);font-weight:650}
+  .btn{
+    appearance:none;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--text);
+    padding:10px 12px;border-radius:14px;cursor:pointer;font-weight:650;letter-spacing:.2px;
+    transition:transform .05s ease, background .15s ease, border-color .15s ease;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+  }
+  .btn:hover{background:rgba(255,255,255,.10)}
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{border-color:rgba(110,231,255,.55);background:linear-gradient(180deg, rgba(110,231,255,.22), rgba(110,231,255,.08));}
+  .btn.primary:hover{background:linear-gradient(180deg, rgba(110,231,255,.28), rgba(110,231,255,.10))}
+  .btn.danger{border-color:rgba(239,68,68,.55);background:linear-gradient(180deg, rgba(239,68,68,.22), rgba(239,68,68,.08));}
+  .btn.ghost{box-shadow:none;background:transparent}
+  .btn.small{padding:8px 10px;border-radius:12px;font-size:13px}
+  .btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+
+  main{margin-top:16px;}
+  .grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  .card{
+    border:1px solid var(--border);
+    background: var(--panel);
+    border-radius:var(--radius2);box-shadow:var(--shadow);overflow:hidden;
+  }
+  .cardHeader{
+    padding:14px 16px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.03);
+    display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+  }
+  .cardHeader h2{margin:0;font-size:16px}
+  .cardHeader p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.4}
+  .cardBody{padding:14px 16px;}
+
+  .twoCols{display:grid;grid-template-columns:1fr;gap:12px;}
+  @media (min-width: 920px){.twoCols{grid-template-columns:1fr 1fr;}}
+
+  .field{display:flex;flex-direction:column;gap:6px;margin:12px 0;}
+  label{font-size:13px;color:var(--muted)}
+  input[type="text"], input[type="password"], select{
+    width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--border);
+    background:rgba(0,0,0,.18);color:var(--text);outline:none;
+  }
+  input[type="text"]::placeholder{color:rgba(159,179,209,.7)}
+  input:focus, select:focus{border-color:rgba(110,231,255,.55);box-shadow:0 0 0 4px rgba(110,231,255,.10)}
+
+  .note{
+    border:1px solid var(--border);
+    background:rgba(0,0,0,.14);
+    padding:12px 12px;border-radius:14px;color:var(--muted);
+    font-size:13px;line-height:1.45;
+  }
+
+  .matchWrap{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media (min-width: 900px){.matchWrap{grid-template-columns:1fr 1fr;}}
+  .list{
+    border:1px solid var(--border);
+    background:rgba(0,0,0,.14);
+    border-radius:var(--radius);
+    padding:10px;
+    display:flex;flex-direction:column;gap:8px;
+    min-height:360px;
+  }
+  .listTitle{
+    font-size:12px;letter-spacing:.25px;color:var(--muted);text-transform:uppercase;
+    display:flex;justify-content:space-between;align-items:center;padding:2px 2px 8px;
+  }
+  .itemBtn{
+    width:100%;text-align:left;padding:10px 10px;border-radius:14px;border:1px solid var(--border);
+    background:rgba(255,255,255,.05);color:var(--text);cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .itemBtn:hover{background:rgba(255,255,255,.08)}
+  .itemBtn:disabled{cursor:not-allowed;opacity:.75}
+
+  .leftWord{font-weight:700}
+  .tag{
+    font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);
+    background:rgba(255,255,255,.06);color:var(--muted);white-space:nowrap;
+  }
+  .sel{border-color:rgba(110,231,255,.7) !important;box-shadow:0 0 0 3px rgba(110,231,255,.10);}
+  .paired{border-color:rgba(255,255,255,.18) !important;background:rgba(255,255,255,.04) !important;}
+  .colorDot{width:10px;height:10px;border-radius:999px;border:1px solid rgba(255,255,255,.35);flex:0 0 auto;}
+  .kbd{
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+    border:1px solid var(--border);background:rgba(0,0,0,.2);padding:2px 6px;border-radius:8px;
+  }
+
+  .q{
+    border:1px solid var(--border);
+    background:rgba(0,0,0,.14);
+    border-radius:var(--radius);
+    padding:12px;margin:10px 0;
+  }
+  .qTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .qNum{font-weight:800;color:var(--muted);font-size:12px;letter-spacing:.3px;}
+  .qSentence{margin:6px 0 10px;font-size:15px;line-height:1.35}
+
+  .markGood{border-color:rgba(34,197,94,.65) !important;background:rgba(34,197,94,.10) !important}
+  .markBad{border-color:rgba(239,68,68,.65) !important;background:rgba(239,68,68,.10) !important}
+
+  .resultBox{
+    border:1px solid var(--border);
+    background:rgba(0,0,0,.14);
+    border-radius:var(--radius2);
+    padding:14px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  @media (min-width: 780px){.resultBox{grid-template-columns:1fr 1fr 1fr 1fr}}
+  .metric{padding:10px;border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.04);}
+  .metric .k{font-size:12px;color:var(--muted)}
+  .metric .v{font-size:20px;font-weight:900;margin-top:4px}
+
+  .status{
+    font-weight:900;letter-spacing:.2px;display:inline-flex;align-items:center;gap:8px;
+    padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.04);
+  }
+  .status.good{border-color:rgba(34,197,94,.55);background:rgba(34,197,94,.10)}
+  .status.bad{border-color:rgba(239,68,68,.55);background:rgba(239,68,68,.10)}
+
+  .mini{color:var(--muted);font-size:12px}
+
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;
+    align-items:center;justify-content:center;padding:14px;z-index:50;
+  }
+  .overlay.show{display:flex}
+  .modal{
+    width:min(980px,100%);max-height:92vh;overflow:auto;border-radius:22px;border:1px solid var(--border);
+    background: var(--panel2);
+    box-shadow:0 30px 120px rgba(0,0,0,.6);
+  }
+  .modalHeader{
+    padding:14px 16px;border-bottom:1px solid var(--border);
+    display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+  }
+  .modalHeader h3{margin:0;font-size:16px}
+  .modalHeader p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+  .modalBody{padding:14px 16px;}
+
+  .tableWrap{overflow:auto;border-radius:16px;border:1px solid var(--border);background:rgba(0,0,0,.16)}
+  table{width:100%;border-collapse:collapse;min-width:860px}
+  th,td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px}
+  th{text-align:left;color:var(--muted);font-weight:800;background:rgba(255,255,255,.04);position:sticky;top:0}
+
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:10px 0 14px;}
+  .seg{display:flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.04);}
+  .seg button{border:0;background:transparent;color:var(--muted);padding:10px 12px;cursor:pointer;font-weight:800;}
+  .seg button.active{color:var(--text);background:rgba(255,255,255,.08)}
+  .footerHint{margin-top:10px;color:var(--muted);font-size:12px}
+  .hide{display:none !important}
+
+  @media print{
+    header, #btnTeacher, .overlay{display:none !important;}
+    body{background:#fff;color:#000}
+    .card{box-shadow:none;border-color:#ddd}
+  }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Läxförhör – <span style="color:var(--accent)">Los interrogativos</span>
+            <span class="sub">Del 1: para ihop • Del 2: välj från lista</span>
+          </h1>
+        </div>
+      </div>
+      <div class="hdrRight">
+        <div class="pill"><span>Elev:</span> <strong id="hdrName">–</strong></div>
+        <div class="pill"><span>Status:</span> <strong id="hdrStatus">Start</strong></div>
+        <button class="btn small ghost" id="btnTeacher" type="button">Lärarvy</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card" id="screenStart">
+        <div class="cardHeader">
+          <div>
+            <h2>Start</h2>
+            <p>Skriv ditt namn och klicka på <strong>Starta</strong>. Du gör först del 1 och sedan del 2. När du har lämnat in en del låses den.</p>
+          </div>
+        </div>
+        <div class="cardBody">
+          <div class="twoCols">
+            <div>
+              <div class="field">
+                <label for="studentName">Ditt namn (obligatoriskt)</label>
+                <input id="studentName" type="text" placeholder="Förnamn Efternamn" autocomplete="name" />
+              </div>
+              <div class="note">
+                <strong>Regler</strong>
+                <ul style="margin:8px 0 0; padding-left: 18px">
+                  <li>Du kan ändra dina val tills du lämnar in respektive del.</li>
+                  <li>När du har lämnat in del 1 eller del 2 låses dina svar.</li>
+                  <li>När båda delar är klara får du se ditt resultat och rättning.</li>
+                </ul>
+              </div>
+              <div style="display:flex; gap:10px; margin-top: 12px; flex-wrap:wrap">
+                <button class="btn primary" id="btnStart" type="button">Starta</button>
+                <button class="btn" id="btnResetLocal" type="button" title="Rensar sparade resultat i just den här webbläsaren">(Lokal) Rensa sparade lärarresultat</button>
+              </div>
+              <div class="footerHint">Tips: Om du jobbar på Chromebook kan du använda helskärmsläge i webbläsaren för bättre fokus.</div>
+            </div>
+            <div>
+              <div class="note">
+                <strong>Om innehållet</strong>
+                <p style="margin:8px 0 0"><em>Los interrogativos</em> är spanska frågeord. I del 1 parar du ihop frågeord med svensk översättning. I del 2 väljer du rätt frågeord i meningar.</p>
+              </div>
+              <div class="note" style="margin-top:12px">
+                <strong>Del 2 – samma lista</strong>
+                <p style="margin:8px 0 0">Du väljer från samma lista i varje fråga (ingen "4-alternativs"-lista per fråga).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card hide" id="screenP1">
+        <div class="cardHeader">
+          <div>
+            <h2>Del 1 – Para ihop</h2>
+            <p>Klicka först på ett spanskt frågeord och sedan på rätt svensk översättning. Du kan ändra dina par tills du lämnar in. Varje par får en egen färg.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+            <button class="btn" id="btnP1Clear" type="button">Rensa alla par</button>
+            <button class="btn primary" id="btnSubmitP1" type="button">Lämna in del 1</button>
+          </div>
+        </div>
+        <div class="cardBody">
+          <div class="matchWrap">
+            <div class="list" aria-label="Spanska frågeord">
+              <div class="listTitle"><span>Spanska</span><span class="kbd">1) Välj</span></div>
+              <div id="spanishItems"></div>
+            </div>
+            <div class="list" aria-label="Svenska översättningar">
+              <div class="listTitle"><span>Svenska</span><span class="kbd">2) Matcha</span></div>
+              <div id="swedishItems"></div>
+            </div>
+          </div>
+          <div class="note" style="margin-top: 12px">
+            <strong>Så här funkar det</strong>
+            <ul style="margin:8px 0 0; padding-left:18px">
+              <li>Klicka på ett spanskt ord → klicka på en svensk översättning för att skapa ett par.</li>
+              <li>Vill du ändra? Klicka på ett redan parat ord och välj en ny match.</li>
+              <li>Du kan klicka på taggen för att ta bort ett par.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card hide" id="screenP2">
+        <div class="cardHeader">
+          <div>
+            <h2>Del 2 – Välj rätt frågeord</h2>
+            <p>Välj rätt frågeord i varje mening med <strong>samma lista</strong> för alla frågor. Du kan lämna in även om inte allt är besvarat.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+            <button class="btn primary" id="btnSubmitP2" type="button">Lämna in del 2</button>
+          </div>
+        </div>
+        <div class="cardBody">
+          <div id="quiz"></div>
+        </div>
+      </section>
+
+      <section class="card hide" id="screenResult">
+        <div class="cardHeader">
+          <div>
+            <h2>Resultat</h2>
+            <p>Här ser du poäng och rättning. När du är klar klickar du på <strong>Avsluta förhöret</strong>. (Ingen möjlighet att göra om.)</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+            <span class="status" id="statusPill">–</span>
+            <button class="btn danger" id="btnFinish" type="button">Avsluta förhöret</button>
+          </div>
+        </div>
+        <div class="cardBody">
+          <div class="resultBox">
+            <div class="metric"><div class="k">Poäng del 1</div><div class="v" id="rP1">–</div></div>
+            <div class="metric"><div class="k">Poäng del 2</div><div class="v" id="rP2">–</div></div>
+            <div class="metric"><div class="k">Totalpoäng</div><div class="v" id="rTotal">–</div></div>
+            <div class="metric"><div class="k">Procent</div><div class="v" id="rPct">–</div></div>
+          </div>
+
+          <div class="twoCols" style="margin-top: 14px">
+            <div class="card" style="box-shadow:none">
+              <div class="cardHeader"><div><h2 style="font-size:15px">Rättning del 1</h2><p>Grönt = rätt par. Rött = fel par. Du ser både ditt svar och facit.</p></div></div>
+              <div class="cardBody" id="reviewP1"></div>
+            </div>
+
+            <div class="card" style="box-shadow:none">
+              <div class="cardHeader"><div><h2 style="font-size:15px">Rättning del 2</h2><p>Grönt = rätt svar. Rött = fel svar. Du ser ditt val och rätt alternativ.</p></div></div>
+              <div class="cardBody" id="reviewP2"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card hide" id="screenEnd">
+        <div class="cardHeader"><div><h2>Förhöret är avslutat</h2><p>Tack! Du kan nu stänga fliken.</p></div></div>
+        <div class="cardBody">
+          <div class="note"><strong>Klart</strong><p style="margin:8px 0 0">Ditt resultat har sparats i lärarvyn på den här enheten (localStorage).</p></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="overlay" id="teacherOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Lärarvy">
+      <div class="modalHeader">
+        <div>
+          <h3>Lärarvy</h3>
+          <p>Resultaten sparas lokalt i webbläsaren (localStorage). Du kan arkivera eller radera valda rader.</p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+          <button class="btn" id="btnTeacherClose" type="button">Stäng</button>
+        </div>
+      </div>
+      <div class="modalBody" id="teacherBody">
+        <div id="teacherLogin">
+          <div class="note" style="margin-bottom: 12px">
+            <strong>Inloggning</strong>
+            <div style="margin-top:8px">Ange lösenordet för att öppna lärarvyn.</div>
+          </div>
+          <div class="field" style="max-width: 420px">
+            <label for="teacherPass">Lösenord</label>
+            <input id="teacherPass" type="password" placeholder="Lösenord" autocomplete="current-password" />
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" id="btnTeacherLogin" type="button">Logga in</button>
+            <button class="btn" id="btnTeacherHint" type="button">Visa lösenordstips</button>
+          </div>
+          <div class="footerHint" id="teacherHint" style="display:none; margin-top:10px">Standardlösenord i denna fil är: <span class="kbd">profesor</span></div>
+        </div>
+
+        <div id="teacherPanel" class="hide">
+          <div class="toolbar">
+            <div class="seg" aria-label="Välj lista">
+              <button id="segActive" class="active" type="button">Aktiva</button>
+              <button id="segArchived" type="button">Arkiverade</button>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end">
+              <button class="btn" id="btnArchive" type="button">Arkivera valda</button>
+              <button class="btn danger" id="btnDelete" type="button">Radera valda</button>
+            </div>
+          </div>
+
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:48px"><input type="checkbox" id="chkAll" title="Markera alla" /></th>
+                  <th>Elevens namn</th>
+                  <th>Del 1</th>
+                  <th>Del 2</th>
+                  <th>Total</th>
+                  <th>Procent</th>
+                  <th>Status</th>
+                  <th>Tid</th>
+                </tr>
+              </thead>
+              <tbody id="teacherRows"></tbody>
+            </table>
+          </div>
+
+          <div class="footerHint" id="teacherSummary">–</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ====== CONFIG ======
+  var TEACHER_PASSWORD = "profesor";
+  var LS_KEY = "interrogativos_quiz_results_v1";
+  // Fallback om localStorage blockeras i inbäddning
+  var MEM_RESULTS = null;
+
+  // Del 1: fyra separata cuánto/a/os/as (+ a dónde finns)
+  var pairs = [
+    { es: "qué",     sv: "vad" },
+    { es: "quién",   sv: "vem" },
+    { es: "quiénes", sv: "vilka (personer)" },
+    { es: "cuándo",  sv: "när" },
+    { es: "dónde",   sv: "var" },
+    { es: "a dónde", sv: "vart" },
+    { es: "por qué", sv: "varför" },
+    { es: "cómo",    sv: "hur" },
+    { es: "cuál",    sv: "vilken" },
+    { es: "cuáles",  sv: "vilka" },
+    { es: "cuánto",  sv: "hur mycket" },
+    { es: "cuánta",  sv: "hur mycket" },
+    { es: "cuántos", sv: "hur många" },
+    { es: "cuántas", sv: "hur många" }
+  ];
+
+  // Del 2: gemensam lista med frågeord
+  var QUESTION_WORDS = [
+    "qué","quién","quiénes","cuándo","dónde","a dónde","por qué","cómo",
+    "cuál","cuáles","cuánto","cuánta","cuántos","cuántas"
+  ];
+
+  var quizData = [
+    { sentence: "_______ años tienes?",                  correct: "cuántos" },
+    { sentence: "¿_______ vives?",                      correct: "dónde"   },
+    { sentence: "¿_______ vas después de la escuela?",  correct: "a dónde" },
+    { sentence: "¿_______ estudias español?",           correct: "por qué" },
+    { sentence: "¿_______ cuesta el libro?",            correct: "cuánto"  },
+    { sentence: "¿_______ es tu mejor amigo?",          correct: "quién"   },
+    { sentence: "¿_______ hermanos tienes?",            correct: "cuántos" },
+    { sentence: "¿_______ prefieres: pizza o pasta?",   correct: "qué"     },
+    { sentence: "¿_______ es tu cumpleaños?",           correct: "cuándo"  },
+    { sentence: "¿_______ personas hay en tu familia?", correct: "cuántas" }
+  ];
+
+  var PALETTE = [
+    "#67e8f9", "#a78bfa", "#34d399", "#fbbf24", "#fb7185",
+    "#60a5fa", "#f472b6", "#22c55e", "#e879f9", "#fde047",
+    "#c084fc", "#2dd4bf", "#93c5fd", "#fda4af"
+  ];
+
+  // ====== STATE ======
+  var state = {
+    student: { name: "" },
+    part1: {
+      submitted: false,
+      map: new Map(),
+      color: new Map(),
+      selectedEs: null,
+      nextColorIndex: 0
+    },
+    part2: {
+      submitted: false,
+      answers: Array(quizData.length).fill(null)
+    },
+    finished: false,
+    teacher: {
+      loggedIn: false,
+      view: "active"
+    }
+  };
+
+  function $(id){ return document.getElementById(id); }
+
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function setHeader(name, status){
+    $("hdrName").textContent = name || "–";
+    $("hdrStatus").textContent = status;
+  }
+
+  function showScreen(which){
+    ["screenStart","screenP1","screenP2","screenResult","screenEnd"].forEach(function(id){
+      $(id).classList.add("hide");
+    });
+    $(which).classList.remove("hide");
+    // (Fix #1 robusthet) se till att man hamnar rätt visuellt när man byter vy
+    try{ window.scrollTo(0,0); }catch(e){}
+  }
+
+  function normalizeName(s){
+    return (s || "").trim().replace(/\s+/g, " ");
+  }
+
+  function nowISO(){ return new Date().toISOString(); }
+
+  function fmtTime(iso){
+    var d = new Date(iso);
+    function pad(x){ return String(x).padStart(2,"0"); }
+    return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes());
+  }
+
+  function escapeHtml(str){
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function cryptoRandomId(){
+    var a = new Uint8Array(8);
+    try{
+      if(window.crypto && typeof window.crypto.getRandomValues === "function"){
+        window.crypto.getRandomValues(a);
+      }else{
+        for(var i=0;i<a.length;i++) a[i] = Math.floor(Math.random()*256);
+      }
+    }catch(e){
+      for(var j=0;j<a.length;j++) a[j] = Math.floor(Math.random()*256);
+    }
+    var out = "";
+    for(var k=0;k<a.length;k++) out += a[k].toString(16).padStart(2,"0");
+    return out;
+  }
+
+  // ====== STORAGE (localStorage + fallback) ======
+  function ensureIds(list){
+    var changed = false;
+    list.forEach(function(r){
+      if(r && !r.id){ r.id = cryptoRandomId(); changed = true; }
+    });
+    return { list:list, changed:changed };
+  }
+
+  function loadResults(){
+    // 1) localStorage
+    try{
+      var raw = localStorage.getItem(LS_KEY);
+      if(raw){
+        var parsed = JSON.parse(raw);
+        var list = Array.isArray(parsed) ? parsed : [];
+        var res = ensureIds(list);
+        if(res.changed){
+          try{ localStorage.setItem(LS_KEY, JSON.stringify(res.list)); }catch(e){}
+        }
+        MEM_RESULTS = res.list.slice();
+        return res.list;
+      }
+    }catch(e){
+      // fortsätt till fallback
+    }
+
+    // 2) fallback (session)
+    if(Array.isArray(MEM_RESULTS)) return MEM_RESULTS.slice();
+    return [];
+  }
+
+  function saveResults(list){
+    MEM_RESULTS = Array.isArray(list) ? list.slice() : [];
+    try{
+      localStorage.setItem(LS_KEY, JSON.stringify(MEM_RESULTS));
+    }catch(e){
+      console.warn("localStorage blockerat, använder minneslagring.", e);
+    }
+  }
+
+  function addResult(row){
+    var list = loadResults();
+    list.push(row);
+    saveResults(list);
+  }
+
+  // ====== PART 1 ======
+  function allocColor(){
+    var idx = state.part1.nextColorIndex % PALETTE.length;
+    state.part1.nextColorIndex++;
+    return PALETTE[idx];
+  }
+  function ensureColorForEs(es){
+    if(!state.part1.color.has(es)) state.part1.color.set(es, allocColor());
+    return state.part1.color.get(es);
+  }
+  function getEsPairedToSv(sv){
+    for (var it = state.part1.map.entries(), step = it.next(); !step.done; step = it.next()){
+      if(step.value[1] === sv) return step.value[0];
+    }
+    return null;
+  }
+  function pair(es, sv){
+    var otherEs = getEsPairedToSv(sv);
+    if(otherEs && otherEs !== es) state.part1.map.delete(otherEs);
+    ensureColorForEs(es);
+    state.part1.map.set(es, sv);
+  }
+  function unpairEs(es){ state.part1.map.delete(es); refreshPart1(); }
+
+  function buildPart1(){
+    var esItems = shuffle(pairs.map(function(p){return p.es;}));
+    var svItems = shuffle(pairs.map(function(p){return p.sv;}));
+
+    var esWrap = $("spanishItems");
+    var svWrap = $("swedishItems");
+    esWrap.innerHTML = "";
+    svWrap.innerHTML = "";
+
+    esItems.forEach(function(es){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "itemBtn";
+      btn.dataset.es = es;
+
+      var left = document.createElement("div");
+      left.style.display = "flex";
+      left.style.alignItems = "center";
+      left.style.gap = "10px";
+
+      var dot = document.createElement("span");
+      dot.className = "colorDot";
+      dot.style.background = "transparent";
+
+      var txt = document.createElement("span");
+      txt.className = "leftWord";
+      txt.textContent = es;
+
+      left.append(dot, txt);
+
+      var right = document.createElement("span");
+      right.className = "tag";
+      right.textContent = "Ej parat";
+
+      btn.append(left, right);
+
+      btn.addEventListener("click", function(){
+        if(state.part1.submitted || state.finished) return;
+        state.part1.selectedEs = es;
+        refreshPart1();
+      });
+
+      right.style.cursor = "pointer";
+      right.title = "Klicka för att ta bort par";
+      right.addEventListener("click", function(ev){
+        ev.stopPropagation();
+        if(state.part1.submitted || state.finished) return;
+        if(state.part1.map.has(es)) unpairEs(es);
+      });
+
+      esWrap.appendChild(btn);
+    });
+
+    svItems.forEach(function(sv){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "itemBtn";
+      btn.dataset.sv = sv;
+
+      var left = document.createElement("div");
+      left.style.display = "flex";
+      left.style.alignItems = "center";
+      left.style.gap = "10px";
+
+      var dot = document.createElement("span");
+      dot.className = "colorDot";
+      dot.style.background = "transparent";
+
+      var txt = document.createElement("span");
+      txt.className = "leftWord";
+      txt.textContent = sv;
+
+      left.append(dot, txt);
+
+      var right = document.createElement("span");
+      right.className = "tag";
+      right.textContent = "Tillgänglig";
+
+      btn.append(left, right);
+
+      btn.addEventListener("click", function(){
+        if(state.part1.submitted || state.finished) return;
+        if(!state.part1.selectedEs){
+          window.alert("Välj först ett spanskt ord (vänster). ");
+          return;
+        }
+        pair(state.part1.selectedEs, sv);
+        state.part1.selectedEs = null;
+        refreshPart1();
+      });
+
+      right.style.cursor = "pointer";
+      right.title = "Klicka för att ta bort par (om det är parat)";
+      right.addEventListener("click", function(ev){
+        ev.stopPropagation();
+        if(state.part1.submitted || state.finished) return;
+        var es = getEsPairedToSv(sv);
+        if(es) unpairEs(es);
+      });
+
+      svWrap.appendChild(btn);
+    });
+
+    refreshPart1();
+  }
+
+  function refreshPart1(){
+    var esBtns = $("spanishItems").querySelectorAll("button.itemBtn");
+    esBtns.forEach(function(btn){
+      var es = btn.dataset.es;
+      btn.classList.toggle("sel", state.part1.selectedEs === es);
+
+      var dot = btn.querySelector(".colorDot");
+      var tag = btn.querySelector(".tag");
+
+      if(state.part1.map.has(es)){
+        var sv = state.part1.map.get(es);
+        var col = ensureColorForEs(es);
+        dot.style.background = col;
+        tag.textContent = sv;
+        tag.style.borderColor = col + "aa";
+        tag.style.color = "#eaf2ff";
+        tag.style.background = col + "18";
+        btn.classList.add("paired");
+      }else{
+        dot.style.background = "transparent";
+        tag.textContent = "Ej parat";
+        tag.style.borderColor = "rgba(255,255,255,.12)";
+        tag.style.color = "var(--muted)";
+        tag.style.background = "rgba(255,255,255,.06)";
+        btn.classList.remove("paired");
+      }
+
+      btn.disabled = state.part1.submitted || state.finished;
+      tag.style.pointerEvents = (state.part1.submitted || state.finished) ? "none" : "auto";
+    });
+
+    var svBtns = $("swedishItems").querySelectorAll("button.itemBtn");
+    svBtns.forEach(function(btn){
+      var sv = btn.dataset.sv;
+      var dot = btn.querySelector(".colorDot");
+      var tag = btn.querySelector(".tag");
+
+      var pairedEs = getEsPairedToSv(sv);
+      if(pairedEs){
+        var col = ensureColorForEs(pairedEs);
+        dot.style.background = col;
+        tag.textContent = "Parat";
+        tag.style.borderColor = col + "aa";
+        tag.style.color = "#eaf2ff";
+        tag.style.background = col + "18";
+        btn.classList.add("paired");
+      }else{
+        dot.style.background = "transparent";
+        tag.textContent = "Tillgänglig";
+        tag.style.borderColor = "rgba(255,255,255,.12)";
+        tag.style.color = "var(--muted)";
+        tag.style.background = "rgba(255,255,255,.06)";
+        btn.classList.remove("paired");
+      }
+
+      btn.disabled = state.part1.submitted || state.finished;
+      tag.style.pointerEvents = (state.part1.submitted || state.finished) ? "none" : "auto";
+    });
+
+    $("btnP1Clear").disabled = state.part1.submitted || state.finished;
+    $("btnSubmitP1").disabled = state.part1.submitted || state.finished;
+  }
+
+  function scorePart1(){
+    var score = 0;
+    pairs.forEach(function(p){ if(state.part1.map.get(p.es) === p.sv) score++; });
+    return score;
+  }
+
+  // ====== PART 2 ======
+  function buildPart2(){
+    var wrap = $("quiz");
+    wrap.innerHTML = "";
+
+    quizData.forEach(function(q, idx){
+      var div = document.createElement("div");
+      div.className = "q";
+      div.dataset.q = String(idx);
+
+      var top = document.createElement("div");
+      top.className = "qTop";
+
+      var num = document.createElement("div");
+      num.className = "qNum";
+      num.textContent = "FRÅGA " + (idx+1) + " / " + quizData.length;
+
+      var lock = document.createElement("div");
+      lock.className = "mini";
+      lock.textContent = "";
+
+      top.append(num, lock);
+
+      var sent = document.createElement("div");
+      sent.className = "qSentence";
+      sent.textContent = q.sentence;
+
+      var field = document.createElement("div");
+      field.className = "field";
+      field.style.margin = "10px 0 0";
+
+      var lab = document.createElement("label");
+      lab.textContent = "Välj frågeord";
+      lab.setAttribute("for", "sel_q_" + idx);
+
+      var sel = document.createElement("select");
+      sel.id = "sel_q_" + idx;
+      sel.disabled = state.part2.submitted || state.finished;
+
+      var ph = document.createElement("option");
+      ph.value = "";
+      ph.textContent = "— Välj —";
+      sel.appendChild(ph);
+
+      QUESTION_WORDS.forEach(function(w){
+        var opt = document.createElement("option");
+        opt.value = w;
+        opt.textContent = w;
+        sel.appendChild(opt);
+      });
+
+      sel.value = state.part2.answers[idx] ? state.part2.answers[idx] : "";
+
+      sel.addEventListener("change", function(){
+        if(state.part2.submitted || state.finished) return;
+        state.part2.answers[idx] = sel.value ? sel.value : null;
+      });
+
+      field.append(lab, sel);
+      div.append(top, sent, field);
+      wrap.appendChild(div);
+    });
+
+    $("btnSubmitP2").disabled = state.part2.submitted || state.finished;
+  }
+
+  function scorePart2(){
+    var score = 0;
+    quizData.forEach(function(q, idx){ if(state.part2.answers[idx] === q.correct) score++; });
+    return score;
+  }
+
+  function lockPart2UIWithMarking(){
+    var qDivs = $("quiz").querySelectorAll(".q");
+    qDivs.forEach(function(div){
+      var idx = Number(div.dataset.q);
+      var correct = quizData[idx].correct;
+      var chosen = state.part2.answers[idx];
+
+      var sel = div.querySelector("select");
+      if(sel) sel.disabled = true;
+
+      div.classList.remove("markGood","markBad");
+      if(chosen !== null){
+        div.classList.add(chosen === correct ? "markGood" : "markBad");
+      }
+
+      var lockText = div.querySelector(".qTop .mini");
+      if(chosen === null){
+        lockText.textContent = "Inte besvarad";
+        lockText.style.color = "var(--muted)";
+      }else if(chosen === correct){
+        lockText.textContent = "Rätt";
+        lockText.style.color = "var(--good)";
+      }else{
+        lockText.textContent = "Fel (rätt: " + correct + ")";
+        lockText.style.color = "var(--bad)";
+      }
+    });
+  }
+
+  // ====== RESULT ======
+  function calcTotals(){
+    var p1 = scorePart1();
+    var p2 = scorePart2();
+    var total = p1 + p2;
+    var max = pairs.length + quizData.length;
+    var pct = Math.round((total / max) * 100);
+    var pass = pct >= 60;
+    return { p1:p1, p2:p2, total:total, max:max, pct:pct, pass:pass };
+  }
+
+  function renderResult(){
+    var totals = calcTotals();
+    $("rP1").textContent = totals.p1 + " / " + pairs.length;
+    $("rP2").textContent = totals.p2 + " / " + quizData.length;
+    $("rTotal").textContent = totals.total + " / " + totals.max;
+    $("rPct").textContent = totals.pct + "%";
+
+    var pill = $("statusPill");
+    pill.classList.remove("good","bad");
+    pill.classList.add(totals.pass ? "good" : "bad");
+    pill.textContent = totals.pass ? "✅ Godkänt (minst 60%)" : "❌ Icke godkänt (under 60%)";
+
+    // Del 1 review
+    var r1 = $("reviewP1");
+    r1.innerHTML = "";
+    pairs.forEach(function(p){
+      var chosen = state.part1.map.get(p.es);
+      if(chosen === undefined || chosen === null) chosen = "(ej parat)";
+      var ok = (chosen === p.sv);
+
+      var box = document.createElement("div");
+      box.className = "q";
+      box.classList.add(ok ? "markGood" : "markBad");
+
+      var line = document.createElement("div");
+      line.style.display = "flex";
+      line.style.alignItems = "center";
+      line.style.justifyContent = "space-between";
+      line.style.gap = "10px";
+
+      var left = document.createElement("div");
+      left.innerHTML =
+        '<div class="qNum">'+(ok ? "RÄTT" : "FEL")+'</div>' +
+        '<div style="font-size:15px; font-weight:900; margin-top:4px">'+escapeHtml(p.es)+'</div>';
+
+      var right = document.createElement("div");
+      right.style.textAlign = "right";
+      right.innerHTML =
+        '<div class="mini">Ditt svar</div><div style="font-weight:900">'+escapeHtml(chosen)+'</div>' +
+        '<div class="mini" style="margin-top:6px">Rätt svar</div><div style="font-weight:900">'+escapeHtml(p.sv)+'</div>';
+
+      line.append(left, right);
+      box.appendChild(line);
+      r1.appendChild(box);
+    });
+
+    // Del 2 review
+    var r2 = $("reviewP2");
+    r2.innerHTML = "";
+    quizData.forEach(function(q, idx){
+      var chosen = state.part2.answers[idx];
+      var ok = (chosen === q.correct);
+
+      var box = document.createElement("div");
+      box.className = "q";
+      if(chosen !== null) box.classList.add(ok ? "markGood" : "markBad");
+
+      var top = document.createElement("div");
+      top.style.display = "flex";
+      top.style.alignItems = "center";
+      top.style.justifyContent = "space-between";
+      top.style.gap = "10px";
+
+      var tL = document.createElement("div");
+      tL.innerHTML =
+        '<div class="qNum">FRÅGA '+(idx+1)+'</div>' +
+        '<div style="margin-top:6px; font-size:15px; font-weight:900">'+escapeHtml(q.sentence)+'</div>';
+
+      var tR = document.createElement("div");
+      tR.style.textAlign = "right";
+      tR.innerHTML =
+        '<div class="mini">Ditt val</div><div style="font-weight:900">'+escapeHtml(chosen === null ? "(inte besvarad)" : chosen)+'</div>' +
+        '<div class="mini" style="margin-top:6px">Rätt svar</div><div style="font-weight:900">'+escapeHtml(q.correct)+'</div>';
+
+      top.append(tL, tR);
+      box.appendChild(top);
+      r2.appendChild(box);
+    });
+  }
+
+  // ====== FLOW ======
+  function startQuiz(){
+    var name = normalizeName($("studentName").value);
+    if(!name){
+      window.alert("Skriv ditt namn innan start.");
+      $("studentName").focus();
+      return;
+    }
+    state.student.name = name;
+    setHeader(name, "Del 1");
+    showScreen("screenP1");
+    buildPart1();
+  }
+
+  function submitPart2(){
+    state.part2.submitted = true;
+    buildPart2();
+    lockPart2UIWithMarking();
+
+    try{ closeTeacher(); }catch(e){}
+
+    setHeader(state.student.name, "Resultat");
+    showScreen("screenResult");
+    renderResult();
+
+    var totals = calcTotals();
+    addResult({
+      id: cryptoRandomId(),
+      name: state.student.name,
+      p1: totals.p1,
+      p2: totals.p2,
+      total: totals.total,
+      max: totals.max,
+      pct: totals.pct,
+      status: totals.pass ? "Godkänt" : "Icke godkänt",
+      ts: nowISO(),
+      archived: false
+    });
+  }
+
+  function finishQuiz(){
+    // (Fix) Eleven ska kunna avsluta förhöret
+    state.finished = true;
+    try{ closeTeacher(); }catch(e){}
+    try{ $("btnTeacher").disabled = true; }catch(e2){}
+    try{ $("btnFinish").disabled = true; }catch(e3){}
+
+    setHeader(state.student.name, "Avslutat");
+    showScreen("screenEnd");
+  }
+
+  // ====== TEACHER ======
+  function openTeacher(){
+    if(state.finished) return; // (Fix #1 robusthet) elev kan inte “fastna” med overlay efter avslut
+    $("teacherOverlay").classList.add("show");
+    $("teacherOverlay").setAttribute("aria-hidden","false");
+    if(!state.teacher.loggedIn){
+      $("teacherLogin").classList.remove("hide");
+      $("teacherPanel").classList.add("hide");
+      $("teacherPass").value = "";
+      $("teacherPass").focus();
+    }else{
+      $("teacherLogin").classList.add("hide");
+      $("teacherPanel").classList.remove("hide");
+      renderTeacherTable();
+    }
+  }
+
+  function closeTeacher(){
+    $("teacherOverlay").classList.remove("show");
+    $("teacherOverlay").setAttribute("aria-hidden","true");
+  }
+
+  function teacherLogin(){
+    var pass = $("teacherPass").value;
+    if(pass !== TEACHER_PASSWORD){
+      window.alert("Fel lösenord.");
+      return;
+    }
+    state.teacher.loggedIn = true;
+    $("teacherLogin").classList.add("hide");
+    $("teacherPanel").classList.remove("hide");
+    renderTeacherTable();
+  }
+
+  function getTeacherList(){
+    var list = loadResults();
+    var wantArchived = (state.teacher.view === "archived");
+    return list
+      .filter(function(r){ return r && r.name; })
+      .filter(function(r){ return wantArchived ? !!r.archived : !r.archived; })
+      .sort(function(a,b){ return String(b.ts||"").localeCompare(String(a.ts||"")); });
+  }
+
+  function rowKey(r){
+    return (r && r.id) ? String(r.id) : "";
+  }
+
+  function renderTeacherTable(){
+    var list = getTeacherList();
+    var tbody = $("teacherRows");
+    tbody.innerHTML = "";
+
+    // Säkerställ att alla rader har ett stabilt id (behövs för att kunna radera valda)
+    var all = loadResults();
+    var ensured = ensureIds(all);
+    if(ensured.changed) saveResults(ensured.list);
+
+    list.forEach(function(r){
+      if(r && !r.id){ r.id = cryptoRandomId(); }
+
+      var tr = document.createElement("tr");
+      tr.dataset.id = rowKey(r);
+
+      var td0 = document.createElement("td");
+      var chk = document.createElement("input");
+      chk.type = "checkbox";
+      chk.className = "rowChk";
+      chk.dataset.id = rowKey(r);
+      td0.appendChild(chk);
+
+      var td1 = document.createElement("td");
+      td1.innerHTML = "<strong>"+escapeHtml(r.name)+"</strong>";
+
+      var td2 = document.createElement("td");
+      td2.textContent = r.p1+" / "+pairs.length;
+
+      var td3 = document.createElement("td");
+      td3.textContent = r.p2+" / "+quizData.length;
+
+      var td4 = document.createElement("td");
+      td4.textContent = r.total+" / "+r.max;
+
+      var td5 = document.createElement("td");
+      td5.textContent = r.pct+"%";
+
+      var td6 = document.createElement("td");
+      var good = (r.status === "Godkänt");
+      td6.innerHTML = '<span class="status '+(good ? "good" : "bad")+'">'+(good ? "✅" : "❌")+" "+escapeHtml(r.status)+"</span>';
+
+      var td7 = document.createElement("td");
+      td7.textContent = fmtTime(r.ts);
+
+      tr.append(td0, td1, td2, td3, td4, td5, td6, td7);
+      tbody.appendChild(tr);
+    });
+
+    var all2 = loadResults().filter(function(r){ return r && r.name; });
+    var totalCount = all2.length;
+    var archivedCount = all2.filter(function(r){ return !!r.archived; }).length;
+    var activeCount = totalCount - archivedCount;
+
+    $("teacherSummary").textContent = "Visar "+list.length+" rad(er). Totalt: "+totalCount+" (Aktiva: "+activeCount+", Arkiverade: "+archivedCount+").";
+    $("chkAll").checked = false;
+
+    // Persist eventuellt nygenererade id:n
+    saveResults(loadResults());
+  }
+
+  function getSelectedIds(){
+    var ids = [];
+    var scope = $("teacherPanel");
+    if(!scope) return ids;
+    scope.querySelectorAll(".rowChk").forEach(function(chk){
+      if(chk.checked) ids.push(String(chk.dataset.id || ""));
+    });
+    return ids.filter(function(x){ return !!x; });
+  }
+
+  function archiveSelected(){
+    var ids = getSelectedIds();
+    if(ids.length === 0){ window.alert("Markera minst en elev."); return; }
+
+    var set = new Set(ids);
+    var list = loadResults();
+    list.forEach(function(r){
+      if(r && r.id && set.has(String(r.id))) r.archived = true;
+    });
+    saveResults(list);
+    renderTeacherTable();
+  }
+
+  // (Fix #2) Radera valda: gör borttagningen mot hela lagrade listan + rensa “markera alla”
+  function deleteSelectedItems(){
+    var ids = getSelectedIds();
+    if(ids.length === 0){ window.alert("Markera minst en elev."); return; }
+
+    var ok = true;
+    try{ ok = confirm("Radera "+ids.length+" vald(a) rad(er)? Detta går inte att ångra."); }catch(e){ ok = true; }
+    if(!ok) return;
+
+    var set = new Set(ids);
+    var list = loadResults().filter(function(r){
+      return !(r && r.id && set.has(String(r.id)));
+    });
+
+    saveResults(list);
+
+    // extra: rensa checkbox-läget i UI direkt
+    try{ $("chkAll").checked = false; }catch(e2){}
+    renderTeacherTable();
+  }
+
+  function setTeacherView(view){
+    state.teacher.view = view;
+    $("segActive").classList.toggle("active", view === "active");
+    $("segArchived").classList.toggle("active", view === "archived");
+    renderTeacherTable();
+  }
+
+  // ====== TESTS ======
+  function runSelfTests(){
+    var ok1 = quizData.every(function(q){ return QUESTION_WORDS.indexOf(q.correct) !== -1; });
+    if(!ok1) console.error("TEST FAIL: En eller flera quizData.correct saknas i QUESTION_WORDS");
+
+    var seen = Object.create(null);
+    var ok2 = pairs.every(function(p){
+      if(seen[p.es]) return false;
+      seen[p.es] = true;
+      return true;
+    });
+    if(!ok2) console.error("TEST FAIL: Dubbletter i pairs.es");
+
+    if(typeof deleteSelectedItems !== "function") console.error("TEST FAIL: deleteSelectedItems saknas");
+    if(!document.getElementById("btnFinish")) console.error("TEST FAIL: btnFinish saknas");
+  }
+
+  // ====== INIT / WIRE UP ======
+  function init(){
+    setHeader("", "Start");
+    runSelfTests();
+
+    $("btnStart").addEventListener("click", startQuiz);
+    $("studentName").addEventListener("keydown", function(e){ if(e.key === "Enter") startQuiz(); });
+
+    $("btnResetLocal").addEventListener("click", function(){
+      var ok = true;
+      try{ ok = confirm("Vill du rensa ALLA sparade lärarresultat (localStorage) på den här enheten?\n\nDetta påverkar inte andra enheter."); }catch(e){ ok = true; }
+      if(!ok) return;
+      try{ localStorage.removeItem(LS_KEY); }catch(e2){}
+      MEM_RESULTS = [];
+      window.alert("Klart! Resultaten är rensade (lokalt på denna enhet). ");
+    });
+
+    $("btnP1Clear").addEventListener("click", function(){
+      if(state.part1.submitted || state.finished) return;
+      state.part1.map.clear();
+      state.part1.selectedEs = null;
+      refreshPart1();
+    });
+
+    $("btnSubmitP1").addEventListener("click", function(){
+      if(state.part1.submitted || state.finished) return;
+      state.part1.submitted = true;
+      refreshPart1();
+      setHeader(state.student.name, "Del 2");
+      showScreen("screenP2");
+      buildPart2();
+    });
+
+    $("btnSubmitP2").addEventListener("click", function(){
+      if(state.part2.submitted || state.finished) return;
+      submitPart2();
+    });
+
+    // (Fix #1) gör avsluta extra robust: funkar även om något ligger “över”
+    $("btnFinish").addEventListener("click", function(ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+      try{ closeTeacher(); }catch(e){}
+
+      var ok = true;
+      try{ ok = confirm("Är du säker på att du vill avsluta förhöret?\nDu kan inte gå tillbaka."); }catch(e2){ ok = true; }
+      if(!ok) return;
+
+      finishQuiz();
+    });
+
+    // Teacher
+    $("btnTeacher").addEventListener("click", openTeacher);
+    $("btnTeacherClose").addEventListener("click", closeTeacher);
+    $("teacherOverlay").addEventListener("click", function(e){ if(e.target === $("teacherOverlay")) closeTeacher(); });
+
+    $("btnTeacherHint").addEventListener("click", function(){
+      var el = $("teacherHint");
+      el.style.display = (el.style.display === "none" || !el.style.display) ? "block" : "none";
+    });
+
+    $("btnTeacherLogin").addEventListener("click", teacherLogin);
+    $("teacherPass").addEventListener("keydown", function(e){ if(e.key === "Enter") teacherLogin(); });
+
+    $("segActive").addEventListener("click", function(){ setTeacherView("active"); });
+    $("segArchived").addEventListener("click", function(){ setTeacherView("archived"); });
+
+    $("chkAll").addEventListener("change", function(e){
+      var checked = e.target.checked;
+      var scope = $("teacherPanel");
+      if(!scope) return;
+      scope.querySelectorAll(".rowChk").forEach(function(chk){ chk.checked = checked; });
+    });
+
+    $("btnArchive").addEventListener("click", function(ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+      archiveSelected();
+    });
+
+    $("btnDelete").addEventListener("click", function(ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+      deleteSelectedItems();
+    });
+
+    showScreen("screenStart");
+  }
+
+  // Starta när DOM är redo (vissa inbäddningar kan flytta scriptet)
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  }else{
+    init();
+  }
+})();
+</script>
+</body>
+</html>
